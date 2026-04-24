@@ -1,0 +1,10 @@
+app.py
+output_gifs/
+verify_input/
+verify_output/
+verify_tight_output/
+__pycache__/
+.venv/
+node_modules/
+*.pyc
+*.log

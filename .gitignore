@@ -1,0 +1,13 @@
+__pycache__/
+output_gifs/
+verify_input/
+verify_output/
+verify_tight_output/
+.venv/
+.vercel/
+node_modules/
+.DS_Store
+*.log
+*.tmp
+*.zip
+*.pyc
