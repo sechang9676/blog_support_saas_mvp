@@ -195,6 +195,10 @@ button {
   padding: 22px;
 }
 
+.log-panel {
+  display: none;
+}
+
 .dropzone {
   display: grid;
   place-items: center;

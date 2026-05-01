@@ -50,7 +50,6 @@ const state = {
 
 function createFfmpegClient() {
   const client = new FFmpeg();
-  client.on("log", ({ message }) => appendLog(message));
   client.on("progress", ({ progress }) => {
     state.activeProgress = progress ?? 0;
     updateProgress();
@@ -117,15 +116,7 @@ function createFileId(file) {
   return fingerprint;
 }
 
-function appendLog(message) {
-  const line = `[${new Date().toLocaleTimeString("ko-KR", { hour12: false })}] ${message}`;
-  if (els.log.textContent.trim().length > 0) {
-    els.log.textContent += `\n${line}`;
-  } else {
-    els.log.textContent = line;
-  }
-  els.log.scrollTop = els.log.scrollHeight;
-}
+function appendLog() {}
 
 function setStatus(message) {
   els.statusText.textContent = message;
@@ -838,6 +829,7 @@ function bindEvents() {
 
 function initialize() {
   bindEvents();
+  document.querySelector(".log-panel")?.remove();
   els.boxValue.textContent = els.boxRange.value;
   els.fpsValue.textContent = els.fpsRange.value;
   els.fileList.innerHTML = makeEmptyState("아직 등록된 파일이 없습니다. 영상을 추가해 주세요.");
