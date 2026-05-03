@@ -2,8 +2,8 @@ import { FFmpeg } from "./ffmpeg/index.js";
 import { fetchFile, toBlobURL } from "./ffmpeg/util.js";
 
 const SITE_NAME = "GOGIF";
-const UPDATE_DATE_TEXT = "2026년 5월 1일";
-const UPDATE_DATE_ISO = "2026-05-01";
+const UPDATE_DATE_TEXT = "2026년 5월 3일";
+const UPDATE_DATE_ISO = "2026-05-03";
 const CONTACT_EMAIL = "jipgae97@gmail.com";
 const LOGO_PATH = "/logo/gogif-logo.png";
 const CORE_VERSION = "0.12.10";
@@ -19,8 +19,13 @@ const VIDEO_EXTENSIONS = new Set(["mp4", "mov", "avi", "mkv", "webm", "m4v", "wm
 const ROUTES = {
   "/": {
     title: `${SITE_NAME} - 동영상을 GIF로 쉽게 변환`,
-    description: "동영상을 GIF로 바꾸는 변환 도구와 함께, 제작 방법, 용량 줄이기 팁, SNS 활용법까지 한곳에서 확인할 수 있는 GOGIF 홈입니다.",
+    description: "GOGIF의 소개, GIF 제작 팁, 사용 이유, FAQ와 관련 글을 한눈에 볼 수 있는 메인 페이지입니다.",
     render: renderHomePage,
+  },
+  "/convert": {
+    title: `${SITE_NAME} 변환기 - 동영상을 GIF로 쉽게 변환`,
+    description: "GOGIF에서 동영상을 바로 GIF로 변환하고, 크기와 FPS를 조절해 결과를 다운로드할 수 있는 전용 변환 페이지입니다.",
+    render: renderConvertPage,
   },
   "/about": {
     title: `${SITE_NAME} 소개 | 동영상을 GIF로 쉽게 변환`,
@@ -218,6 +223,7 @@ function renderHeader() {
           </a>
           <nav class="site-nav" aria-label="주요 메뉴">
             ${navLink("/", "Home")}
+            ${navLink("/convert", "Convert")}
             ${navLink("/about", "About")}
             ${navLink("/how-to-use", "How to Use")}
             ${navLink("/blog", "Blog")}
@@ -249,6 +255,7 @@ function renderFooter() {
             </p>
           </div>
           <div class="footer-links" aria-label="푸터 링크">
+            ${navLink("/convert", "Convert")}
             ${navLink("/about", "About")}
             ${navLink("/how-to-use", "How to Use")}
             ${navLink("/blog", "Blog")}
@@ -273,94 +280,14 @@ function renderLayout(content) {
   `;
 }
 
-function renderHomePage() {
+function renderConverterSection() {
   return `
-    <section class="hero-panel panel fade-in">
-      <div>
-        <span class="eyebrow">video to gif · cute tool · browser ready</span>
-        <h1>동영상을 GIF로 쉽게 바꾸는 GOGIF</h1>
-        <p class="lede">
-          GOGIF는 복잡한 편집 프로그램 없이, 웹 브라우저 안에서 바로 동영상을 GIF로 변환할 수 있도록 만든 도구입니다.
-          짧은 장면을 빠르게 공유하고 싶을 때, 블로그나 상세페이지에 움직이는 예시가 필요할 때, 메신저에서 가볍게 반응하고 싶을 때 편하게 사용할 수 있습니다.
-        </p>
-        <div class="cta-row">
-          <a class="button primary" href="#converter" data-nav>GIF 만들기</a>
-          <a class="button secondary" href="/how-to-use" data-nav>사용법 보기</a>
-        </div>
-        <div class="chip-row" aria-label="주요 특징">
-          <span class="chip">브라우저에서 처리</span>
-          <span class="chip">단계별 안내</span>
-          <span class="chip">짧은 GIF 최적화</span>
-          <span class="chip">모바일 대응</span>
-        </div>
-      </div>
-      <div class="hero-aside">
-        <div class="stat-card">
-          <strong id="fileCount">0</strong>
-          <span>선택된 파일</span>
-        </div>
-        <div class="stat-card">
-          <strong id="validCount">0</strong>
-          <span>변환 가능 파일</span>
-        </div>
-        <div class="stat-card">
-          <strong id="zipState">대기</strong>
-          <span>ZIP 상태</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="info-grid cols-3">
-      <article class="info-card fade-in">
-        <h3>GOGIF 소개</h3>
-        <p>GOGIF는 “동영상을 GIF로 바꾸고 싶다”는 가장 단순한 필요에서 출발한 서비스입니다. 빠르게 변환하는 기능은 물론, 왜 이런 설정을 쓰는지까지 함께 설명해 처음 쓰는 사람도 흐름을 놓치지 않도록 만들었습니다.</p>
-      </article>
-      <article class="info-card fade-in">
-        <h3>왜 GIF로 바꾸나요?</h3>
-        <p>짧은 반복 장면은 영상보다 GIF가 더 가볍고 눈에 잘 들어올 때가 많습니다. 블로그 튜토리얼, 메신저 반응, 상품 소개처럼 “한눈에 보여주는 장면”이 필요한 곳에서 특히 유용합니다.</p>
-      </article>
-      <article class="info-card fade-in">
-        <h3>제작 팁</h3>
-        <p>짧게 자르고, 너무 높은 해상도를 피하고, 장면의 움직임이 가장 잘 보이는 구간만 고르는 것이 좋습니다. GOGIF는 이런 기준에 맞춰 결과를 보기 쉽게 다듬는 데 초점을 맞췄습니다.</p>
-      </article>
-    </section>
-
-    <section class="content-panel panel fade-in">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">How it works</span>
-          <h2>동영상을 GIF로 만드는 3단계</h2>
-          <p>복잡한 메뉴 없이, 업로드와 설정, 다운로드만 차례대로 진행하면 됩니다.</p>
-        </div>
-      </div>
-      <ol class="steps">
-        <li>
-          <div>
-            <h3>영상 업로드</h3>
-            <p>MP4, MOV, AVI, MKV처럼 일반적으로 쓰는 영상 파일을 올립니다. 한 번에 여러 파일을 선택해도 되고, 드래그해서 놓아도 됩니다.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <h3>변환 설정</h3>
-            <p>가로 크기와 FPS를 조절해 GIF의 움직임과 용량을 함께 관리합니다. 길이가 긴 영상일수록 조금 더 가볍게 설정하는 것이 좋습니다.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <h3>다운로드</h3>
-            <p>변환이 끝나면 개별 GIF를 바로 받거나, 여러 파일을 ZIP으로 묶어 한 번에 내려받을 수 있습니다.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
     <section class="tool-panel panel fade-in" id="converter">
       <div class="section-head">
         <div>
           <span class="eyebrow">GIF Converter</span>
           <h2>GOGIF 변환 도구</h2>
-          <p>설명만 있는 사이트가 아니라, 바로 사용할 수 있는 도구도 함께 제공합니다.</p>
+          <p>바로 사용할 수 있는 전용 변환 페이지입니다. 파일을 올리고 설정을 맞춘 뒤 GIF를 내려받을 수 있습니다.</p>
         </div>
         <div class="section-link-row">
           ${navButton("/how-to-use", "자세한 사용법")}
@@ -487,6 +414,106 @@ function renderHomePage() {
           </section>
         </aside>
       </div>
+    </section>
+  `;
+}
+
+function renderHomePage() {
+  return `
+    <section class="hero-panel panel fade-in">
+      <div>
+        <span class="eyebrow">video to gif · cute tool · browser ready</span>
+        <h1>동영상을 GIF로 쉽게 바꾸는 GOGIF</h1>
+        <p class="lede">
+          GOGIF는 복잡한 편집 프로그램 없이, 웹 브라우저 안에서 바로 동영상을 GIF로 변환할 수 있도록 만든 도구입니다.
+          짧은 장면을 빠르게 공유하고 싶을 때, 블로그나 상세페이지에 움직이는 예시가 필요할 때, 메신저에서 가볍게 반응하고 싶을 때 편하게 사용할 수 있습니다.
+        </p>
+        <div class="cta-row">
+          <a class="button primary" href="/convert" data-nav>GIF 만들기</a>
+          <a class="button secondary" href="/how-to-use" data-nav>사용법 보기</a>
+        </div>
+        <div class="chip-row" aria-label="주요 특징">
+          <span class="chip">브라우저에서 처리</span>
+          <span class="chip">단계별 안내</span>
+          <span class="chip">짧은 GIF 최적화</span>
+          <span class="chip">모바일 대응</span>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <div class="stat-card">
+          <strong>9</strong>
+          <span>페이지와 글로 구성된 안내형 사이트</span>
+        </div>
+        <div class="stat-card">
+          <strong>2</strong>
+          <span>주요 CTA 경로: 소개 읽기와 바로 변환하기</span>
+        </div>
+        <div class="stat-card">
+          <strong>1</strong>
+          <span>공통 브랜드 톤으로 이어지는 단일 사이트 구조</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-grid cols-3">
+      <article class="info-card fade-in">
+        <h3>GOGIF 소개</h3>
+        <p>GOGIF는 “동영상을 GIF로 바꾸고 싶다”는 가장 단순한 필요에서 출발한 서비스입니다. 빠르게 변환하는 기능은 물론, 왜 이런 설정을 쓰는지까지 함께 설명해 처음 쓰는 사람도 흐름을 놓치지 않도록 만들었습니다.</p>
+      </article>
+      <article class="info-card fade-in">
+        <h3>왜 GIF로 바꾸나요?</h3>
+        <p>짧은 반복 장면은 영상보다 GIF가 더 가볍고 눈에 잘 들어올 때가 많습니다. 블로그 튜토리얼, 메신저 반응, 상품 소개처럼 “한눈에 보여주는 장면”이 필요한 곳에서 특히 유용합니다.</p>
+      </article>
+      <article class="info-card fade-in">
+        <h3>제작 팁</h3>
+        <p>짧게 자르고, 너무 높은 해상도를 피하고, 장면의 움직임이 가장 잘 보이는 구간만 고르는 것이 좋습니다. GOGIF는 이런 기준에 맞춰 결과를 보기 쉽게 다듬는 데 초점을 맞췄습니다.</p>
+      </article>
+    </section>
+
+    <section class="content-panel panel fade-in">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2>동영상을 GIF로 만드는 3단계</h2>
+          <p>복잡한 메뉴 없이, 업로드와 설정, 다운로드만 차례대로 진행하면 됩니다.</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li>
+          <div>
+            <h3>영상 업로드</h3>
+            <p>MP4, MOV, AVI, MKV처럼 일반적으로 쓰는 영상 파일을 올립니다. 한 번에 여러 파일을 선택해도 되고, 드래그해서 놓아도 됩니다.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>변환 설정</h3>
+            <p>가로 크기와 FPS를 조절해 GIF의 움직임과 용량을 함께 관리합니다. 길이가 긴 영상일수록 조금 더 가볍게 설정하는 것이 좋습니다.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>다운로드</h3>
+            <p>변환이 끝나면 개별 GIF를 바로 받거나, 여러 파일을 ZIP으로 묶어 한 번에 내려받을 수 있습니다.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="content-panel panel fade-in">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Try it</span>
+          <h2>변환 도구는 별도 페이지에서 사용할 수 있어요</h2>
+          <p>홈에서는 GOGIF를 소개하고, 실제 변환은 전용 페이지에서 더 집중해서 사용할 수 있게 나눴습니다.</p>
+        </div>
+        <div class="section-link-row">
+          ${navButton("/convert", "변환 페이지로 이동")}
+        </div>
+      </div>
+      <p class="lede">
+        업로드와 변환 설정, 다운로드가 한곳에 모인 전용 페이지로 들어가면 더 빠르게 작업할 수 있습니다.
+      </p>
     </section>
 
     <section class="content-panel panel fade-in">
@@ -1911,6 +1938,40 @@ function bindHomeEvents() {
 function renderHomeRoute() {
   setTitle(ROUTES["/"].title, ROUTES["/"].description);
   app.innerHTML = renderLayout(renderHomePage());
+}
+
+function renderConvertPage() {
+  return `
+    <section class="page-hero panel fade-in">
+      <div class="intro">
+        <span class="eyebrow">GIF Converter</span>
+        <h1>동영상을 GIF로 바꾸는 전용 변환 페이지</h1>
+        <p class="summary">
+          업로드, 변환 설정, 다운로드를 한 화면에 모아두었습니다. 설명이 필요하면 사용법 페이지를 참고하고, 바로 작업하고 싶다면 아래에서 파일을 올리세요.
+        </p>
+      </div>
+      <div class="sidebar-stack">
+        <div class="mini-panel">
+          <h3>빠른 팁</h3>
+          <p>짧은 장면, 적당한 해상도, 10~15fps 범위에서 시작하면 대부분 무난합니다.</p>
+        </div>
+        <div class="mini-panel">
+          <h3>관련 페이지</h3>
+          <div class="mini-link-row">
+            <a href="/how-to-use" data-nav>사용법</a>
+            <a href="/blog" data-nav>블로그</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    ${renderConverterSection()}
+  `;
+}
+
+function renderConvertRoute() {
+  const route = ROUTES["/convert"];
+  setTitle(route.title, route.description);
+  app.innerHTML = renderLayout(route.render());
   initializeHome();
 }
 
@@ -1998,6 +2059,8 @@ function renderRoute(pathname) {
 
   if (path === "/") {
     renderHomeRoute();
+  } else if (path === "/convert") {
+    renderConvertRoute();
   } else if (path === "/about") {
     renderAboutRoute();
   } else if (path === "/how-to-use") {
