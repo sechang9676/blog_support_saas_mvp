@@ -2,6 +2,7 @@ import { FFmpeg } from "./ffmpeg/index.js";
 import { fetchFile, toBlobURL } from "./ffmpeg/util.js";
 
 const SITE_NAME = "GOGIF";
+const SITE_URL = "https://gogif.space";
 const UPDATE_DATE_TEXT = "2026년 5월 3일";
 const UPDATE_DATE_ISO = "2026-05-03";
 const CONTACT_EMAIL = "jipgae97@gmail.com";
@@ -191,10 +192,39 @@ function createFileId(file) {
 
 function setTitle(title, description) {
   document.title = title;
-  const meta = document.querySelector('meta[name="description"]');
-  if (meta) {
-    meta.setAttribute("content", description);
+  updateMeta('meta[name="description"]', "content", description);
+  updateMeta('meta[property="og:title"]', "content", title);
+  updateMeta('meta[property="og:description"]', "content", description);
+  updateMeta('meta[name="twitter:title"]', "content", title);
+  updateMeta('meta[name="twitter:description"]', "content", description);
+  updateMeta('meta[property="og:url"]', "content", `${SITE_URL}${normalizePath(window.location.pathname)}`);
+  updateLink('link[rel="canonical"]', "href", `${SITE_URL}${normalizePath(window.location.pathname)}`);
+}
+
+function updateMeta(selector, attribute, value) {
+  let element = document.querySelector(selector);
+  if (!element) {
+    element = document.createElement("meta");
+    const match = selector.match(/^(meta)\[(name|property)="([^"]+)"\]$/);
+    if (match) {
+      element.setAttribute(match[2], match[3]);
+    }
+    document.head.appendChild(element);
   }
+  element.setAttribute(attribute, value);
+}
+
+function updateLink(selector, attribute, value) {
+  let element = document.querySelector(selector);
+  if (!element) {
+    element = document.createElement("link");
+    const match = selector.match(/^(link)\[(rel)="([^"]+)"\]$/);
+    if (match) {
+      element.setAttribute(match[2], match[3]);
+    }
+    document.head.appendChild(element);
+  }
+  element.setAttribute(attribute, value);
 }
 
 function navLink(path, label, className = "") {
