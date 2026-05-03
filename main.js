@@ -19,8 +19,8 @@ const VIDEO_EXTENSIONS = new Set(["mp4", "mov", "avi", "mkv", "webm", "m4v", "wm
 
 const ROUTES = {
   "/": {
-    title: `${SITE_NAME} - 동영상을 GIF로 쉽게 변환`,
-    description: "GOGIF의 소개, GIF 제작 팁, 사용 이유, FAQ와 관련 글을 한눈에 볼 수 있는 메인 페이지입니다.",
+    title: `${SITE_NAME} - GIF 만들기와 움짤 만들기`,
+    description: "GOGIF의 소개, GIF 만들기와 움짤 만들기 방법, 제작 팁, FAQ와 관련 글을 한눈에 볼 수 있는 메인 페이지입니다.",
     render: renderHomePage,
   },
   "/convert": {
@@ -42,6 +42,11 @@ const ROUTES = {
     title: `GIF 제작 팁과 활용법 | ${SITE_NAME}`,
     description: "동영상을 GIF로 만드는 방법, GIF 용량을 줄이는 방법, SNS에서 GIF를 활용하는 방법을 정리한 GOGIF 블로그 목록입니다.",
     render: renderBlogListPage,
+  },
+  "/blog/gif-making-guide": {
+    title: `GIF 만들기와 움짤 만들기 가장 쉬운 방법 | ${SITE_NAME}`,
+    description: "동영상을 GIF로 만들고 움짤로 바꾸는 방법을 처음부터 끝까지 설명하는 GOGIF 안내 글입니다.",
+    render: renderGifMakingGuidePage,
   },
   "/blog/video-to-gif-guide": {
     title: `동영상을 GIF로 만드는 가장 쉬운 방법 | ${SITE_NAME}`,
@@ -76,6 +81,11 @@ const ROUTES = {
 };
 
 const BLOG_POSTS = [
+  {
+    path: "/blog/gif-making-guide",
+    title: "GIF 만들기와 움짤 만들기 가장 쉬운 방법",
+    excerpt: "처음 GIF 만들기나 움짤 만들기를 해보는 사람도 바로 따라 할 수 있도록, 어떤 영상을 고르고 어떻게 변환하면 좋은지 GOGIF 기준으로 정리했습니다.",
+  },
   {
     path: "/blog/video-to-gif-guide",
     title: "동영상을 GIF로 만드는 가장 쉬운 방법",
@@ -452,10 +462,10 @@ function renderHomePage() {
   return `
     <section class="hero-panel panel fade-in">
       <div>
-        <span class="eyebrow">video to gif · cute tool · browser ready</span>
-        <h1>동영상을 GIF로 쉽게 바꾸는 GOGIF</h1>
+        <span class="eyebrow">gif 만들기 · 움짤 만들기 · browser ready</span>
+        <h1>GIF 만들기와 움짤 만들기를 쉽게 하는 GOGIF</h1>
         <p class="lede">
-          GOGIF는 복잡한 편집 프로그램 없이, 웹 브라우저 안에서 바로 동영상을 GIF로 변환할 수 있도록 만든 도구입니다.
+          GOGIF는 복잡한 편집 프로그램 없이, 웹 브라우저 안에서 바로 GIF 만들기와 움짤 만들기를 할 수 있도록 만든 도구입니다.
           짧은 장면을 빠르게 공유하고 싶을 때, 블로그나 상세페이지에 움직이는 예시가 필요할 때, 메신저에서 가볍게 반응하고 싶을 때 편하게 사용할 수 있습니다.
         </p>
         <div class="cta-row">
@@ -488,11 +498,11 @@ function renderHomePage() {
     <section class="info-grid cols-3">
       <article class="info-card fade-in">
         <h3>GOGIF 소개</h3>
-        <p>GOGIF는 “동영상을 GIF로 바꾸고 싶다”는 가장 단순한 필요에서 출발한 서비스입니다. 빠르게 변환하는 기능은 물론, 왜 이런 설정을 쓰는지까지 함께 설명해 처음 쓰는 사람도 흐름을 놓치지 않도록 만들었습니다.</p>
+        <p>GOGIF는 “GIF 만들기”와 “움짤 만들기”를 빠르게 하고 싶다는 가장 단순한 필요에서 출발한 서비스입니다. 빠르게 변환하는 기능은 물론, 왜 이런 설정을 쓰는지까지 함께 설명해 처음 쓰는 사람도 흐름을 놓치지 않도록 만들었습니다.</p>
       </article>
       <article class="info-card fade-in">
         <h3>왜 GIF로 바꾸나요?</h3>
-        <p>짧은 반복 장면은 영상보다 GIF가 더 가볍고 눈에 잘 들어올 때가 많습니다. 블로그 튜토리얼, 메신저 반응, 상품 소개처럼 “한눈에 보여주는 장면”이 필요한 곳에서 특히 유용합니다.</p>
+        <p>짧은 반복 장면은 영상보다 GIF가 더 가볍고 눈에 잘 들어올 때가 많습니다. 블로그 튜토리얼, 메신저 반응, 상품 소개처럼 “한눈에 보여주는 장면”이 필요한 곳에서 특히 유용합니다. 그래서 GIF 만들기와 움짤 만들기는 지금도 많이 검색됩니다.</p>
       </article>
       <article class="info-card fade-in">
         <h3>제작 팁</h3>
@@ -575,7 +585,7 @@ function renderHomePage() {
         <div>
           <span class="eyebrow">Related</span>
           <h2>관련 글</h2>
-          <p>GIF를 더 잘 쓰고 싶다면 아래 글부터 읽어보면 좋습니다.</p>
+          <p>GIF 만들기와 움짤 만들기를 더 잘 쓰고 싶다면 아래 글부터 읽어보면 좋습니다.</p>
         </div>
       </div>
       <div class="card-grid cols-3">
@@ -744,19 +754,19 @@ function renderBlogListPage() {
     <section class="page-hero panel fade-in">
       <div class="intro">
         <span class="eyebrow">Blog</span>
-        <h1>GIF 제작 팁과 활용법</h1>
+        <h1>GIF 제작 팁과 움짤 만들기 활용법</h1>
         <p class="summary">
-          GOGIF 블로그에서는 동영상을 GIF로 바꾸는 가장 쉬운 방법, 용량을 줄이는 실전 팁, SNS에서 GIF를 잘 활용하는 방법을 차근차근 정리합니다.
+          GOGIF 블로그에서는 GIF 만들기와 움짤 만들기의 가장 쉬운 방법, 용량을 줄이는 실전 팁, SNS에서 GIF를 잘 활용하는 방법을 차근차근 정리합니다.
         </p>
       </div>
       <div class="sidebar-stack">
         <div class="mini-panel">
           <h3>왜 글이 필요할까요?</h3>
-          <p>도구만 있으면 끝나는 것처럼 보여도, 실제로는 어떤 장면이 GIF에 맞는지와 어떤 설정이 좋은지 아는 것이 중요합니다. 그래서 GOGIF은 설명 콘텐츠를 함께 제공합니다.</p>
+          <p>도구만 있으면 끝나는 것처럼 보여도, 실제로는 어떤 장면이 GIF에 맞는지와 어떤 설정이 좋은지 아는 것이 중요합니다. 그래서 GOGIF은 GIF 만들기와 움짤 만들기에 맞는 설명 콘텐츠를 함께 제공합니다.</p>
         </div>
         <div class="mini-panel">
           <h3>추천 읽기 순서</h3>
-          <p>1. 동영상을 GIF로 만드는 방법 2. 용량 줄이는 방법 3. SNS 활용법 순으로 읽으면 흐름이 자연스럽습니다.</p>
+          <p>1. GIF 만들기와 움짤 만들기 2. 용량 줄이는 방법 3. SNS 활용법 순으로 읽으면 흐름이 자연스럽습니다.</p>
         </div>
       </div>
     </section>
@@ -778,6 +788,63 @@ function renderBlogListPage() {
       `).join("")}
     </section>
   `;
+}
+
+function renderGifMakingGuidePage() {
+  return renderBlogPostPage({
+    eyebrow: "Blog · Starter Guide",
+    title: "GIF 만들기와 움짤 만들기 가장 쉬운 방법",
+    lead: "처음 GIF 만들기나 움짤 만들기를 해보는 사람도 따라 할 수 있도록, 어떤 영상을 고르고 어떻게 변환하면 좋은지 순서대로 정리했습니다.",
+    toc: [
+      { id: "same", label: "1. 같은 말일까?" },
+      { id: "choose", label: "2. 영상 고르기" },
+      { id: "convert", label: "3. GOGIF로 만들기" },
+      { id: "tips", label: "4. 더 보기 좋게" },
+      { id: "use", label: "5. 어디에 쓰면 좋나" },
+    ],
+    sections: [
+      {
+        id: "same",
+        title: "1. GIF 만들기와 움짤 만들기는 같은 뜻에 가깝습니다",
+        paragraphs: [
+          "일상에서는 GIF 만들기와 움짤 만들기를 거의 같은 뜻으로 씁니다. 둘 다 짧은 움직임을 반복되는 이미지로 바꿔서, 영상보다 가볍고 빠르게 보여주기 위한 방식입니다. 그래서 검색할 때도 두 표현을 함께 찾는 경우가 많습니다.",
+          "GOGIF는 이 둘을 따로 나누지 않고, 짧은 장면을 쉽게 GIF로 만들고 움직이는 이미지로 쓰는 과정 전체를 도와주는 서비스라고 보면 이해하기 쉽습니다. 즉, 이름은 달라도 사용 목적은 비슷합니다.",
+        ],
+      },
+      {
+        id: "choose",
+        title: "2. 어떤 영상을 고르면 GIF 만들기가 쉬울까요?",
+        paragraphs: [
+          "움직임이 분명하고 길이가 짧은 영상이 가장 좋습니다. 예를 들어 버튼을 누르는 장면, 표정이 바뀌는 순간, 제품의 핵심 기능이 드러나는 부분처럼 한눈에 이해되는 장면은 움짤로 만들었을 때 전달력이 좋습니다.",
+          "반대로 배경이 복잡하거나 설명이 너무 길게 이어지는 영상은 GIF로 만들면 오히려 무거워질 수 있습니다. 그래서 GIF 만들기를 처음 할 때는 전체를 바꾸기보다, 가장 중요한 부분만 잘라서 시작하는 편이 훨씬 편합니다.",
+        ],
+      },
+      {
+        id: "convert",
+        title: "3. GOGIF에서 GIF 만들기",
+        paragraphs: [
+          "GOGIF 메인 페이지에서 영상을 업로드한 뒤, 가로 크기와 FPS를 조절하면 바로 변환할 수 있습니다. 설정이 어렵다면 기본값으로 시작한 뒤 결과를 보고 조금씩 낮추는 방식이 가장 편합니다.",
+          "작업이 끝나면 개별 파일로 내려받을 수도 있고, 여러 개를 한 번에 ZIP으로 받을 수도 있습니다. 여러 장면을 순서대로 비교해 보고 싶을 때도 편해서, 움짤 만들기 초보자에게 특히 잘 맞습니다.",
+        ],
+      },
+      {
+        id: "tips",
+        title: "4. 더 보기 좋게 만들고 싶다면 이렇게 해보세요",
+        paragraphs: [
+          "GIF는 짧고 단순할수록 보기 좋습니다. 그래서 3초에서 10초 정도의 짧은 구간을 고르면 대부분 안정적입니다. 해상도는 실제로 보여줄 크기보다 조금만 여유 있게 두면 충분한 경우가 많습니다.",
+          "또 하나 중요한 건 반복의 자연스러움입니다. 시작과 끝이 부드럽게 이어지는 장면을 고르면 움짤이 훨씬 자연스럽습니다. GOGIF은 이런 점을 고려해 브라우저 안에서 빠르게 다시 시도할 수 있게 설계했습니다.",
+        ],
+      },
+      {
+        id: "use",
+        title: "5. GIF 만들기 결과물은 어디에 쓰면 좋을까요?",
+        paragraphs: [
+          "블로그 글에서는 사용법이나 전후 비교를 보여줄 때 유용하고, 상세페이지에서는 제품의 기능을 간단히 보여주기 좋습니다. 메신저에서는 감정 표현이나 짧은 반응을 전달하기에도 좋습니다.",
+          "결국 GIF 만들기와 움짤 만들기의 목적은 복잡한 설명을 짧게 줄여서 보여주는 데 있습니다. 그래서 “짧은 장면을 바로 보여주고 싶다”는 생각이 들면 GIF가 좋은 선택이 됩니다.",
+        ],
+      },
+    ],
+  });
 }
 
 function renderVideoToGifGuidePage() {
@@ -2023,6 +2090,12 @@ function renderBlogRoute() {
   app.innerHTML = renderLayout(route.render());
 }
 
+function renderGifMakingGuideRoute() {
+  const route = ROUTES["/blog/gif-making-guide"];
+  setTitle(route.title, route.description);
+  app.innerHTML = renderLayout(route.render());
+}
+
 function renderVideoToGifGuideRoute() {
   const route = ROUTES["/blog/video-to-gif-guide"];
   setTitle(route.title, route.description);
@@ -2097,6 +2170,8 @@ function renderRoute(pathname) {
     renderHowToUseRoute();
   } else if (path === "/blog") {
     renderBlogRoute();
+  } else if (path === "/blog/gif-making-guide") {
+    renderGifMakingGuideRoute();
   } else if (path === "/blog/video-to-gif-guide") {
     renderVideoToGifGuideRoute();
   } else if (path === "/blog/reduce-gif-size") {
