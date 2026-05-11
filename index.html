@@ -8,7 +8,11 @@
     <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta
       name="description"
-      content="GOGIF는 GIF 만들기와 움짤 만들기를 쉽게 해주는 한국어 웹 도구로, 동영상 변환과 제작 팁을 함께 제공합니다."
+      content="GOGIF는 GIF 만들기와 움짤 만들기를 쉽게 할 수 있는 브라우저 기반 도구입니다. 동영상을 GIF로 변환하고, 용량과 FPS를 조절해 바로 다운로드하세요."
+    />
+    <meta
+      name="keywords"
+      content="GIF 만들기, 움짤 만들기, 동영상 GIF 변환, GIF 제작, 움짤 제작, GIF 용량 줄이기"
     />
     <link rel="canonical" href="https://gogif.space/" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -19,7 +23,7 @@
     <meta property="og:title" content="GOGIF - GIF 만들기와 움짤 만들기" />
     <meta
       property="og:description"
-      content="GIF 만들기와 움짤 만들기를 쉽게 해주는 변환 도구와 함께, 제작 방법, 용량 줄이기 팁, SNS 활용법까지 한곳에서 확인할 수 있는 GOGIF 홈입니다."
+      content="GOGIF는 GIF 만들기와 움짤 만들기를 쉽게 할 수 있는 브라우저 기반 도구입니다. 동영상을 GIF로 변환하고, 용량과 FPS를 조절해 바로 다운로드하세요."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://gogif.space/" />
@@ -30,7 +34,7 @@
     <meta name="twitter:title" content="GOGIF - GIF 만들기와 움짤 만들기" />
     <meta
       name="twitter:description"
-      content="동영상을 GIF로 바꾸는 변환 도구와 함께, 제작 방법, 용량 줄이기 팁, SNS 활용법까지 한곳에서 확인할 수 있는 GOGIF 홈입니다."
+      content="GOGIF는 GIF 만들기와 움짤 만들기를 쉽게 할 수 있는 브라우저 기반 도구입니다. 동영상을 GIF로 변환하고, 용량과 FPS를 조절해 바로 다운로드하세요."
     />
     <meta name="twitter:image" content="https://gogif.space/logo/gogif-logo.png" />
     <meta name="theme-color" content="#f4efe6" />
@@ -54,7 +58,7 @@
             "applicationCategory": "MultimediaApplication",
             "operatingSystem": "Web",
             "inLanguage": "ko-KR",
-            "description": "브라우저에서 동영상을 GIF로 변환하는 웹 도구"
+            "description": "브라우저에서 동영상을 GIF로 변환하고 움짤 만들기를 쉽게 도와주는 웹 도구"
           }
         ]
       }
@@ -80,14 +84,35 @@
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
-    <div id="app"></div>
+    <div id="app">
+      <main class="seo-fallback" style="max-width: 1080px; margin: 0 auto; padding: 24px 20px 64px;">
+        <section style="padding: 56px 0 32px;">
+          <p style="margin: 0 0 12px; font-weight: 700; letter-spacing: 0.04em;">GIF 만들기 · 움짤 만들기 · 동영상 GIF 변환</p>
+          <h1 style="margin: 0 0 16px; font-size: 2.4rem; line-height: 1.15;">GIF 만들기와 움짤 만들기를 쉽게 하는 GOGIF</h1>
+          <p style="max-width: 760px; margin: 0 0 24px; line-height: 1.8;">
+            GOGIF는 복잡한 편집 프로그램 없이 브라우저에서 바로 GIF 만들기와 움짤 만들기를 할 수 있도록 만든 도구입니다.
+            동영상을 업로드하고, 크기와 FPS를 조절한 뒤 바로 GIF로 다운로드해 보세요.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <a href="/convert">GIF 만들기</a>
+            <a href="/how-to-use">움짤 만들기 사용법</a>
+            <a href="/blog">GIF 제작 팁</a>
+          </div>
+        </section>
+        <section style="padding: 24px 0; line-height: 1.8;">
+          <h2 style="margin: 0 0 12px;">왜 GOGIF인가요?</h2>
+          <p style="margin: 0 0 12px;">짧고 선명한 움짤은 블로그, 메신저, SNS, 상세페이지에서 특히 잘 보입니다.</p>
+          <p style="margin: 0;">처음 GIF 만들기를 해보는 사람도 쉽게 따라 할 수 있도록, 변환 흐름과 용량 줄이는 방법까지 함께 안내합니다.</p>
+        </section>
+      </main>
+    </div>
     <noscript>
       <main style="max-width: 720px; margin: 48px auto; padding: 24px; font-family: sans-serif; line-height: 1.7;">
-        <h1>GOGIF - 동영상을 GIF로 쉽게 변환</h1>
-        <p>이 사이트는 브라우저에서 동영상을 GIF로 바꾸는 웹 도구입니다. JavaScript를 켜면 변환기와 가이드, 블로그를 모두 이용할 수 있습니다.</p>
+        <h1>GOGIF - GIF 만들기와 움짤 만들기</h1>
+        <p>이 사이트는 브라우저에서 동영상을 GIF로 변환하고 움짤을 쉽게 만들 수 있도록 도와주는 도구입니다.</p>
         <ul>
           <li><a href="/">홈</a></li>
-          <li><a href="/convert">변환기</a></li>
+          <li><a href="/convert">GIF 만들기</a></li>
           <li><a href="/about">소개</a></li>
           <li><a href="/how-to-use">사용법</a></li>
           <li><a href="/blog">블로그</a></li>
